@@ -1,0 +1,36 @@
+[
+  {
+    "key": "group_service_fields",
+    "title": "Prestation — champs",
+    "fields": [
+      {
+        "key": "field_service_image",
+        "label": "Image",
+        "name": "image",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "medium"
+      },
+      {
+        "key": "field_service_icon",
+        "label": "Icône (emoji ou classe)",
+        "name": "icon",
+        "type": "text",
+        "instructions": "Exemple : 🔧 ou une classe d'icône Font Awesome"
+      }
+    ],
+    "location": [
+      [
+        { "param": "post_type", "operator": "==", "value": "service" }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "show_in_graphql": 1,
+    "graphql_field_name": "acfService"
+  }
+]

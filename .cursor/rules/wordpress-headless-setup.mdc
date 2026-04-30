@@ -1,0 +1,133 @@
+
+ Si tu démarres un projet WP headless similaire ailleurs, il suffira de copier ce fichier dans .cursor/rules/.
+
+---
+description: Pièges et conventions pour un projet WordPress headless avec WPGraphQL + ACF Pro + Next.js
+alwaysApply: true
+---
+
+# WordPress Headless — Pièges connus & conventions
+
+Projet : Next.js (App Router) + WordPress (WPGraphQL + WPGraphQL for ACF + Yoast).
+Cette règle consigne les pièges rencontrés lors du setup pour les éviter.
+
+## 1. Nommage GraphQL des Flexible Content ACF
+
+Le pattern de nommage des types des layouts ACF généré par **WPGraphQL for ACF v2.x** est :
+
+```
+Acf{GroupGraphqlName}{FieldName}{LayoutName}Layout
+```
+
+**Exemple** : groupe `acfSections` (graphql_field_name) → champ `sections` → layout `hero` :
+- ❌ Pas `Page_Acfsections_Sections_Hero` (ancien pattern v1)
+- ❌ Pas `AcfSectionsSections_Hero`
+- ✅ **`AcfSectionsSectionsHeroLayout`**
+
+**Toujours valider via une vraie requête** avant de coder les fragments :
+
+```powershell
+$body = '{"query":"{ nodeByUri(uri: \"/\") { ... on Page { acfSections { sections { __typename } } } } }"}'
+Invoke-RestMethod -Uri "https://wp.example.com/graphql" -Method POST `
+  -Headers @{"Content-Type"="application/json"} -Body $body
+```
+
+## 2. Repeaters avec noms identiques → conflit GraphQL
+
+Si deux Flexible Content layouts contiennent un repeater de **même `name`**, WPGraphQL fusionne leurs sous-types en un type partagé incomplet (ex: `AcfSectionsSectionsItems`).
+
+❌ **À éviter** : tous les repeaters nommés `items`
+✅ **À faire** : noms uniques par layout
+
+```json
+// stats layout
+{ "name": "stat_items", "type": "repeater" }
+// values layout
+{ "name": "value_items", "type": "repeater" }
+// equipment layout
+{ "name": "equipment_items", "type": "repeater" }
+```
+
+Côté GraphQL, ces noms snake_case deviennent camelCase : `statItems`, `valueItems`, `equipmentItems`.
+
+## 3. ACF Options Page → toujours forcer `graphql_field_name`
+
+Sans `graphql_field_name` explicite, WPGraphQL dérive un nom imprévisible depuis le `menu_slug`. Toujours définir :
+
+```php
+acf_add_options_page( [
+    'menu_slug'          => 'site-options',
+    'show_in_graphql'    => true,
+    'graphql_field_name' => 'siteOptions', // ← obligatoire
+] );
+```
+
+Query : `{ siteOptions { acfOptions { ... } } }`
+
+## 4. `MediaItem` n'expose pas `width`/`height`
+
+❌ Cette query échoue :
+```graphql
+featuredImage { node { sourceUrl altText width height } }
+```
+
+✅ Utiliser :
+```graphql
+featuredImage { node { sourceUrl altText } }
+```
+
+Côté `next/image`, soit utiliser `fill`, soit définir `width`/`height` par défaut côté composant.
+
+## 5. Plugins requis (ordre d'activation)
+
+1. ACF Pro (avec licence)
+2. WPGraphQL
+3. WPGraphQL for ACF
+4. Yoast SEO
+5. **Add WPGraphQL SEO** (par `ash_hitch`) ← le bon nom du plugin Yoast
+
+## 6. Permaliens obligatoires
+
+Avant tout : **Réglages → Permaliens → "Nom de l'article"** (`/%postname%/`).
+Sans ça, `nodeByUri` ne fonctionne pas correctement.
+
+## 7. Variables d'environnement Next.js
+
+```env
+WORDPRESS_URL=https://wp.example.com    # PAS de slash final
+WORDPRESS_HOSTNAME=wp.example.com       # Sans protocole, pour next/image
+WORDPRESS_PROTOCOL=https
+```
+
+Le slash final cause des doubles slashes dans `${WORDPRESS_URL}/graphql`.
+
+## 8. ISR cache en dev
+
+Les fonctions `getMenus()` et `getGlobalOptions()` sont en `revalidate: 3600` (1h).
+En dev, après un changement dans WP, **redémarrer `npm run dev`** pour voir les modifs immédiatement (sinon Hard Reload `Ctrl+Shift+R` peut suffire selon le cas).
+
+## 9. Permissions FTP sur o2switch / hébergement mutualisé
+
+Erreurs `Permission denied` typiques après upload FTP :
+- Dossiers : `chmod 755`
+- Fichiers : `chmod 644`
+
+Alternative simple : zipper le thème et l'uploader via `Apparence → Thèmes → Téléverser`.
+
+## 10. Workflow d'ajout d'une nouvelle section ACF
+
+1. **WP** : ACF → Groupes de champs → ajouter le layout (avec **noms de repeaters uniques**)
+2. **Export JSON** : ACF → Outils → Exporter → remplacer le fichier dans `_wordpress/acf-json/`
+3. **Next.js** : ajouter le fragment dans `lib/queries/pages.ts` (typename validé via introspection)
+4. **Next.js** : ajouter le type dans `lib/types.ts`
+5. **Next.js** : créer le composant dans `components/sections/`
+6. **Next.js** : ajouter le `case` dans `components/sections/SectionRenderer.tsx`
+
+## 11. Debug introspection
+
+L'introspection peut renvoyer des champs vides. Méthode fiable : interroger directement avec une query qui force l'erreur, le serveur renvoie alors `Did you mean "X"?` indiquant le vrai nom de champ.
+
+```powershell
+# Force l'erreur pour découvrir le bon nom
+$body = '{"query":"{ nodeByUri(uri: \"/\") { ... on Page { acfSections { sections { __typename ... on TYPE_PROBABLE { wrongField } } } } } }"}'
+```

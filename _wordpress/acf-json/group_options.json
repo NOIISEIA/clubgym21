@@ -1,0 +1,108 @@
+[
+  {
+    "key": "group_options_global",
+    "title": "Options globales du site",
+    "fields": [
+      {
+        "key": "field_opt_logo",
+        "label": "Logo principal",
+        "name": "logo",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "medium"
+      },
+      {
+        "key": "field_opt_phone",
+        "label": "Téléphone",
+        "name": "phone",
+        "type": "text"
+      },
+      {
+        "key": "field_opt_email",
+        "label": "Email de contact",
+        "name": "email",
+        "type": "email"
+      },
+      {
+        "key": "field_opt_address",
+        "label": "Adresse",
+        "name": "address",
+        "type": "textarea",
+        "rows": 3
+      },
+      {
+        "key": "field_opt_tab_social",
+        "label": "Réseaux sociaux",
+        "name": "tab_social",
+        "type": "tab"
+      },
+      {
+        "key": "field_opt_facebook",
+        "label": "URL Facebook",
+        "name": "facebook_url",
+        "type": "url"
+      },
+      {
+        "key": "field_opt_instagram",
+        "label": "URL Instagram",
+        "name": "instagram_url",
+        "type": "url"
+      },
+      {
+        "key": "field_opt_linkedin",
+        "label": "URL LinkedIn",
+        "name": "linkedin_url",
+        "type": "url"
+      },
+      {
+        "key": "field_opt_twitter",
+        "label": "URL X / Twitter",
+        "name": "twitter_url",
+        "type": "url"
+      },
+      {
+        "key": "field_opt_youtube",
+        "label": "URL YouTube",
+        "name": "youtube_url",
+        "type": "url"
+      },
+      {
+        "key": "field_opt_tab_footer",
+        "label": "Footer",
+        "name": "tab_footer",
+        "type": "tab"
+      },
+      {
+        "key": "field_opt_footer_text",
+        "label": "Texte de copyright",
+        "name": "footer_text",
+        "type": "text",
+        "placeholder": "© 2025 — Tous droits réservés"
+      },
+      {
+        "key": "field_opt_footer_links",
+        "label": "Liens légaux (footer bas)",
+        "name": "footer_links",
+        "type": "repeater",
+        "button_label": "Ajouter un lien",
+        "sub_fields": [
+          { "key": "field_opt_footer_link_label", "label": "Libellé", "name": "label", "type": "text", "required": 1 },
+          { "key": "field_opt_footer_link_url", "label": "URL", "name": "url", "type": "url", "required": 1 }
+        ]
+      }
+    ],
+    "location": [
+      [
+        { "param": "options_page", "operator": "==", "value": "site-options" }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "show_in_graphql": 1,
+    "graphql_field_name": "acfOptions"
+  }
+]

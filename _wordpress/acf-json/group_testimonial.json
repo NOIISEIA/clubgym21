@@ -1,0 +1,51 @@
+[
+  {
+    "key": "group_testimonial_fields",
+    "title": "Témoignage — champs",
+    "fields": [
+      {
+        "key": "field_testim_author",
+        "label": "Auteur",
+        "name": "author",
+        "type": "text",
+        "required": 1
+      },
+      {
+        "key": "field_testim_content",
+        "label": "Témoignage",
+        "name": "content",
+        "type": "textarea",
+        "rows": 4,
+        "required": 1
+      },
+      {
+        "key": "field_testim_rating",
+        "label": "Note (1 à 5)",
+        "name": "rating",
+        "type": "number",
+        "min": 1,
+        "max": 5,
+        "step": 1
+      },
+      {
+        "key": "field_testim_company",
+        "label": "Entreprise / Société",
+        "name": "company",
+        "type": "text"
+      }
+    ],
+    "location": [
+      [
+        { "param": "post_type", "operator": "==", "value": "testimonial" }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "show_in_graphql": 1,
+    "graphql_field_name": "acfTestimonial"
+  }
+]

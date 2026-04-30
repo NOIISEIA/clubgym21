@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary: #1e40af;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f59e0b;
+  --color-secondary-foreground: #1c1917;
+  --font-sans: var(--font-inter);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply text-gray-900 antialiased bg-white;
+}
+
+.container {
+  @apply max-w-7xl mx-auto;
+}
+
+.prose img {
+  @apply rounded-xl;
+}

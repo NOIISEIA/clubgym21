@@ -1,0 +1,19 @@
+# OS / Editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dépendances et builds (cas où il y aurait du Node à la racine)
+node_modules/
+.next/
+dist/
+build/
+
+# Environnement
+.env
+.env.local
+.env.*.local
+
+# Vercel
+.vercel

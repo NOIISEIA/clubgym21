@@ -1,0 +1,171 @@
+[
+  {
+    "key": "group_pages_sections",
+    "title": "Sections de page",
+    "fields": [
+      {
+        "key": "field_sections",
+        "label": "Sections",
+        "name": "sections",
+        "type": "flexible_content",
+        "button_label": "Ajouter une section",
+        "min": 0,
+        "max": 0,
+        "layouts": [
+          {
+            "key": "layout_hero",
+            "name": "hero",
+            "label": "Hero",
+            "display": "block",
+            "sub_fields": [
+              { "key": "field_hero_title", "label": "Titre", "name": "title", "type": "text", "required": 1 },
+              { "key": "field_hero_subtitle", "label": "Sous-titre", "name": "subtitle", "type": "textarea", "rows": 3 },
+              { "key": "field_hero_cta_text", "label": "Texte du bouton", "name": "cta_text", "type": "text" },
+              { "key": "field_hero_cta_link", "label": "Lien du bouton", "name": "cta_link", "type": "url" },
+              { "key": "field_hero_bg_image", "label": "Image de fond", "name": "background_image", "type": "image", "return_format": "array", "preview_size": "medium" }
+            ],
+            "min": 0,
+            "max": 0
+          },
+          {
+            "key": "layout_about",
+            "name": "about",
+            "label": "À propos",
+            "display": "block",
+            "sub_fields": [
+              { "key": "field_about_label", "label": "Étiquette (surtitre)", "name": "label", "type": "text" },
+              { "key": "field_about_title", "label": "Titre", "name": "title", "type": "text", "required": 1 },
+              { "key": "field_about_description", "label": "Description", "name": "description", "type": "textarea", "rows": 5 },
+              { "key": "field_about_image", "label": "Image", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium" },
+              { "key": "field_about_link", "label": "Lien", "name": "link", "type": "url" }
+            ],
+            "min": 0,
+            "max": 0
+          },
+          {
+            "key": "layout_stats",
+            "name": "stats",
+            "label": "Statistiques",
+            "display": "block",
+            "sub_fields": [
+              {
+                "key": "field_stats_items",
+                "label": "Chiffres",
+                "name": "stat_items",
+                "type": "repeater",
+                "button_label": "Ajouter un chiffre",
+                "sub_fields": [
+                  { "key": "field_stat_icon", "label": "Icône (emoji)", "name": "icon", "type": "text" },
+                  { "key": "field_stat_value", "label": "Valeur", "name": "value", "type": "text", "required": 1 },
+                  { "key": "field_stat_label", "label": "Label", "name": "label", "type": "text", "required": 1 }
+                ]
+              }
+            ],
+            "min": 0,
+            "max": 0
+          },
+          {
+            "key": "layout_services",
+            "name": "services",
+            "label": "Prestations",
+            "display": "block",
+            "sub_fields": [
+              { "key": "field_services_title", "label": "Titre", "name": "title", "type": "text", "required": 1 },
+              { "key": "field_services_subtitle", "label": "Sous-titre", "name": "subtitle", "type": "textarea", "rows": 2 }
+            ],
+            "min": 0,
+            "max": 0
+          },
+          {
+            "key": "layout_values",
+            "name": "values",
+            "label": "Valeurs / Engagements",
+            "display": "block",
+            "sub_fields": [
+              { "key": "field_values_title", "label": "Titre", "name": "title", "type": "text", "required": 1 },
+              {
+                "key": "field_values_items",
+                "label": "Valeurs",
+                "name": "value_items",
+                "type": "repeater",
+                "button_label": "Ajouter une valeur",
+                "sub_fields": [
+                  { "key": "field_value_icon", "label": "Icône (emoji)", "name": "icon", "type": "text" },
+                  { "key": "field_value_title", "label": "Titre", "name": "title", "type": "text", "required": 1 },
+                  { "key": "field_value_description", "label": "Description", "name": "description", "type": "textarea", "rows": 3, "required": 1 }
+                ]
+              }
+            ],
+            "min": 0,
+            "max": 0
+          },
+          {
+            "key": "layout_equipment",
+            "name": "equipment",
+            "label": "Équipements / Moyens",
+            "display": "block",
+            "sub_fields": [
+              { "key": "field_equip_title", "label": "Titre", "name": "title", "type": "text", "required": 1 },
+              { "key": "field_equip_subtitle", "label": "Sous-titre", "name": "subtitle", "type": "textarea", "rows": 2 },
+              { "key": "field_equip_image", "label": "Image", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium" },
+              {
+                "key": "field_equip_items",
+                "label": "Liste d'équipements",
+                "name": "equipment_items",
+                "type": "repeater",
+                "button_label": "Ajouter un élément",
+                "sub_fields": [
+                  { "key": "field_equip_item", "label": "Équipement", "name": "item", "type": "text", "required": 1 }
+                ]
+              }
+            ],
+            "min": 0,
+            "max": 0
+          },
+          {
+            "key": "layout_testimonials",
+            "name": "testimonials",
+            "label": "Témoignages",
+            "display": "block",
+            "sub_fields": [
+              { "key": "field_testim_title", "label": "Titre", "name": "title", "type": "text", "required": 1 },
+              { "key": "field_testim_subtitle", "label": "Sous-titre", "name": "subtitle", "type": "textarea", "rows": 2 }
+            ],
+            "min": 0,
+            "max": 0
+          },
+          {
+            "key": "layout_cta",
+            "name": "cta",
+            "label": "Appel à l'action (CTA)",
+            "display": "block",
+            "sub_fields": [
+              { "key": "field_cta_title", "label": "Titre", "name": "title", "type": "text", "required": 1 },
+              { "key": "field_cta_subtitle", "label": "Sous-titre", "name": "subtitle", "type": "textarea", "rows": 2 },
+              { "key": "field_cta_text", "label": "Texte du bouton", "name": "cta_text", "type": "text", "required": 1 },
+              { "key": "field_cta_link", "label": "Lien du bouton", "name": "cta_link", "type": "url", "required": 1 },
+              { "key": "field_cta_image", "label": "Image de fond", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium" }
+            ],
+            "min": 0,
+            "max": 0
+          }
+        ]
+      }
+    ],
+    "location": [
+      [
+        { "param": "post_type", "operator": "==", "value": "page" }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Sections Flexible Content ACF pour les pages WordPress.",
+    "show_in_graphql": 1,
+    "graphql_field_name": "acfSections"
+  }
+]
